@@ -33,7 +33,7 @@
     "jest": "^23.6.0"
   },
   "scripts": {
-    "test": "npm test"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
