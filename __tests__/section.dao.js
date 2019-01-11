@@ -1,10 +1,10 @@
-const BuildingDao = require('../db/building/dao')
+const SectionDao = require('../db/section/dao')
 
-describe('building.dao : single usage', async ()=>{
+describe('section.dao : single usage', async ()=>{
   const timestamp = (new Date()).getTime()
 
   it('create', async ()=>{
-    const res = await BuildingDao.create({
+    const res = await SectionDao.create({
       cityCode: `cityCode-${timestamp}`,
       townCode: `townCode-${timestamp}`,
       sectCode: `sectCode-${timestamp}`,
@@ -24,29 +24,29 @@ describe('building.dao : single usage', async ()=>{
   it('update & findOne', async ()=>{
     const cityCode = `cityCode-${timestamp}`
     const sectCode = `foo-${timestamp}`
-    await BuildingDao.update({sectCode}, {cityCode})
-    const res =  await BuildingDao.findOne({sectCode})
+    await SectionDao.update({sectCode}, {cityCode})
+    const res =  await SectionDao.findOne({sectCode})
     expect(res.cityCode).toBe(cityCode)
   })
 
   it('desctory', async ()=>{
     const cityCode = `cityCode-${timestamp}`
-    const res1 =  await BuildingDao.findOne({cityCode})
+    const res1 =  await SectionDao.findOne({cityCode})
     expect(res1.cityCode).toBe(cityCode)
 
-    await BuildingDao.destroy({cityCode})
-    const res2 =  await BuildingDao.findOne({cityCode})
+    await SectionDao.destroy({cityCode})
+    const res2 =  await SectionDao.findOne({cityCode})
     expect(res2).toBe(null)
   })
 })
 
 
-describe('building.dao : multi usage', async ()=>{
+describe('section.dao : multi usage', async ()=>{
   const timestamp = (new Date()).getTime()
 
-  it('create 2 building', async ()=>{
+  it('create 2 section', async ()=>{
     const common = 987
-    await BuildingDao.create({
+    await SectionDao.create({
       cityCode: `cityCode-1-${timestamp}`,
       townCode: `townCode-1-${timestamp}`,
       sectCode: `sectCode-1-${timestamp}`,
@@ -54,7 +54,7 @@ describe('building.dao : multi usage', async ()=>{
       landBuildMax: common,
     })
 
-    await BuildingDao.create({
+    await SectionDao.create({
       cityCode: `cityCode-2-${timestamp}`,
       townCode: `townCode-2-${timestamp}`,
       sectCode: `sectCode-2-${timestamp}`,
@@ -62,18 +62,18 @@ describe('building.dao : multi usage', async ()=>{
       landBuildMax: common,
     })
 
-    const res0 = await BuildingDao.findAndCountAll({landBuildMax: common})
+    const res0 = await SectionDao.findAndCountAll({landBuildMax: common})
 
     expect(res0.count).toBe(2)
     expect(res0.data[0].cityCode).toBe(`cityCode-1-${timestamp}`)
     expect(res0.data[1].cityCode).toBe(`cityCode-2-${timestamp}`)
 
-    await BuildingDao.destroy({landBuildMax: common})
-    const res1 = await BuildingDao.findAndCountAll({landBuildMax: common})
+    await SectionDao.destroy({landBuildMax: common})
+    const res1 = await SectionDao.findAndCountAll({landBuildMax: common})
     expect(res1.count).toBe(1)
 
-    await BuildingDao.destroy({landBuildMax: common})
-    const res2 = await BuildingDao.findAndCountAll({landBuildMax: common})
+    await SectionDao.destroy({landBuildMax: common})
+    const res2 = await SectionDao.findAndCountAll({landBuildMax: common})
     expect(res2.count).toBe(0)
   })
 })

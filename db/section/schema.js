@@ -1,5 +1,5 @@
 
-const Auth = {
+const Section = {
   type: 'object',
   properties: {
     cityCode: { 
@@ -28,4 +28,4 @@ const Auth = {
   }
 }
 
-module.exports = Auth
+module.exports = Section

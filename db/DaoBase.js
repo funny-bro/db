@@ -1,4 +1,4 @@
-const validator = require('../lib/validator')
+const validator = require('./validator')
 
 class DaoBase {
   constructor({model, schema}){

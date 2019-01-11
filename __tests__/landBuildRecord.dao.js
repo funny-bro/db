@@ -1,18 +1,18 @@
 const landBuildRecord = require('../db/landBuildRecord/dao')
 
-describe('building.dao : single usage', async ()=>{
-  let buildingId = ''
+describe('section.dao : single usage', async ()=>{
+  let sectionId = ''
 
   beforeAll(async ()=>{
-    const buildingDao = require('../db/building/dao')
-    const res = await buildingDao.create({
+    const sectionDao = require('../db/section/dao')
+    const res = await sectionDao.create({
       cityCode: `cityCode-${timestamp}`,
       townCode: `townCode-${timestamp}`,
       sectCode: `sectCode-${timestamp}`,
       landBuildMax: timestamp,
       project: `project-${timestamp}`,
     })
-    buildingId = res.id
+    sectionId = res.id
   })
 
   const timestamp = (new Date()).getTime()
@@ -24,12 +24,12 @@ describe('building.dao : single usage', async ()=>{
     const res = await landBuildRecord.create({
       landBuild: `landBuild-${timestamp}`,
       data,
-      buildingId
+      sectionId
     })
 
     expect(res.landBuild).toBe(`landBuild-${timestamp}`)
     expect(res.data).toBe(data)
-    expect(res.buildingId).toBe(buildingId)
+    expect(res.sectionId).toBe(sectionId)
     expect(typeof res.updatedAt).toBe('object') //date object
     expect(typeof res.createdAt).toBe('object') //date object
   })
@@ -51,10 +51,10 @@ describe('building.dao : single usage', async ()=>{
 })
 
 
-describe('building.dao : multi usage', async ()=>{
+describe('section.dao : multi usage', async ()=>{
   const timestamp = (new Date()).getTime()
 
-  it('create 2 building', async ()=>{
+  it('create 2 section', async ()=>{
     const common = `common-${timestamp}`
     await landBuildRecord.create({
       landBuild: common,

@@ -1,6 +1,6 @@
 const sequelize = require('../init')
 const Sequelize = require('sequelize');
-const BuildingModel = require('../building/model')
+const SectionModel = require('../section/model')
 
 const LandBuildRecord = sequelize.define('landBuildRecord', {
   id: {
@@ -14,6 +14,6 @@ const LandBuildRecord = sequelize.define('landBuildRecord', {
   updatedAt: Sequelize.DATE,
 });
 
-LandBuildRecord.belongsTo(BuildingModel)
+LandBuildRecord.belongsTo(SectionModel)
 
 module.exports = LandBuildRecord

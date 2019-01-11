@@ -1,7 +1,7 @@
 const sequelize = require('../init')
 const Sequelize = require('sequelize');
 
-const Building = sequelize.define('building', {
+const section = sequelize.define('section', {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV1,
@@ -16,4 +16,4 @@ const Building = sequelize.define('building', {
   updatedAt: Sequelize.DATE,
 });
 
-module.exports = Building
+module.exports = section
