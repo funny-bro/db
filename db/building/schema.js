@@ -18,9 +18,7 @@ const Auth = {
      minLength: 1
     },
     landBuildMax: { 
-     type: 'number',
-     required: true,
-     minLength: 1
+     type: 'number'
     },
     project: { 
      type: 'string',
