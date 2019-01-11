@@ -8,14 +8,14 @@ describe('building.dao : single usage', async ()=>{
       cityCode: `cityCode-${timestamp}`,
       townCode: `townCode-${timestamp}`,
       sectCode: `sectCode-${timestamp}`,
-      landBuild: `landBuild-${timestamp}`,
+      landBuildMax: timestamp,
       project: `project-${timestamp}`,
     })
 
     expect(res.cityCode).toBe(`cityCode-${timestamp}`)
     expect(res.townCode).toBe(`townCode-${timestamp}`)
     expect(res.sectCode).toBe(`sectCode-${timestamp}`)
-    expect(res.landBuild).toBe(`landBuild-${timestamp}`)
+    expect(res.landBuildMax).toBe(timestamp)
     expect(res.project).toBe(`project-${timestamp}`)
     expect(typeof res.updatedAt).toBe('object') //date object
     expect(typeof res.createdAt).toBe('object') //date object
@@ -45,13 +45,13 @@ describe('building.dao : multi usage', async ()=>{
   const timestamp = (new Date()).getTime()
 
   it('create 2 building', async ()=>{
-    const common = `common-${timestamp}`
+    const common = 987
     await BuildingDao.create({
       cityCode: `cityCode-1-${timestamp}`,
       townCode: `townCode-1-${timestamp}`,
       sectCode: `sectCode-1-${timestamp}`,
       project: `project-1-${timestamp}`,
-      landBuild: common,
+      landBuildMax: common,
     })
 
     await BuildingDao.create({
@@ -59,20 +59,21 @@ describe('building.dao : multi usage', async ()=>{
       townCode: `townCode-2-${timestamp}`,
       sectCode: `sectCode-2-${timestamp}`,
       project: `project-2-${timestamp}`,
-      landBuild: common,
+      landBuildMax: common,
     })
 
-    const res0 = await BuildingDao.findAndCountAll({landBuild: common})
+    const res0 = await BuildingDao.findAndCountAll({landBuildMax: common})
+
     expect(res0.count).toBe(2)
     expect(res0.data[0].cityCode).toBe(`cityCode-1-${timestamp}`)
     expect(res0.data[1].cityCode).toBe(`cityCode-2-${timestamp}`)
 
-    await BuildingDao.destroy({landBuild: common})
-    const res1 = await BuildingDao.findAndCountAll({landBuild: common})
+    await BuildingDao.destroy({landBuildMax: common})
+    const res1 = await BuildingDao.findAndCountAll({landBuildMax: common})
     expect(res1.count).toBe(1)
 
-    await BuildingDao.destroy({landBuild: common})
-    const res2 = await BuildingDao.findAndCountAll({landBuild: common})
+    await BuildingDao.destroy({landBuildMax: common})
+    const res2 = await BuildingDao.findAndCountAll({landBuildMax: common})
     expect(res2.count).toBe(0)
   })
 })
